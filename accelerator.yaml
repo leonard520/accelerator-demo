@@ -1,0 +1,41 @@
+accelerator:
+  displayName: Azure Accelerator
+  description: Demo
+  iconUrl: https://raw.githubusercontent.com/leonard520/accelerator/main/asc.png
+  tags:
+  - Azure
+  options:
+  - name: projectName
+    label: "Project name"
+    description: The project name.
+    defaultValue: hello-world
+    required: true
+    display: true
+
+  - name: projectType
+    label: "Project type"
+    inputType: select
+    choices:
+    - value: maven
+      text: Maven
+    - value: gradle
+      text: Gradle
+    defaultValue: maven
+    display: true
+
+engine:
+  include:
+    ["**/*.md", "**/*.xml", "**/*.gradle", "**/*.java", "**/*.properties"]
+  exclude:
+    ['*.png']
+  merge:
+    - condition: "#projectType == 'maven'"
+      include: ['**/*.xml']
+      chain:
+        - type: ReplaceText
+          substitutions:
+          - text: artifactIdName
+            with: "#projectName"
+    - condition: "#projectType == 'gradle'"
+      include: ['*.gradle']
+    - include: ["**/*.java", "README.md", "**/*.properties"]

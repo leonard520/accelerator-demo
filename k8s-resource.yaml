@@ -1,0 +1,9 @@
+apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
+kind: Accelerator
+metadata:
+  name: azure-demo-accelerator
+spec:
+  git:
+    url: https://github.com/leonard520/accelerator-demo.git
+    ref:
+      branch: main
